@@ -10,7 +10,17 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var textString = "Click the Button"
-    @State private var value = ""
+    @State private var value = 1
+    
+    func getRandomNum() {
+        let number = Int.random(in: 1..<7)
+        self.value = number
+    }
+    
+    func restRandomNumAsOne() {
+        self.value = 1
+    }
+    
     
     var body: some View {
         ZStack {
@@ -20,15 +30,22 @@ struct ContentView: View {
                 Text(textString)
                 .font(.title)
                 .fontWeight(.bold)
-                .foregroundColor(Color.white)
+                    .foregroundColor(Color.white)
+                    .padding(.bottom, 30.0)
+                    
                 
-                Text(value)
+                Text("\(value)")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.black)
+                    .padding(.bottom, 20.0)
+                    
                 
                 HStack {
                     Button(action: {
-                        value = "Hello World!"
+                        getRandomNum()
                     }) {
-                        Text("show")
+                        Text("Roll")
                             .font(.body)
                             .fontWeight(.bold)
                             .foregroundColor(Color.yellow)
@@ -37,9 +54,9 @@ struct ContentView: View {
                     }
                     
                     Button(action: {
-                        value = ""
+                        restRandomNumAsOne()
                     }) {
-                        Text("hide")
+                        Text("Reset")
                             .font(.body)
                             .fontWeight(.bold)
                             .foregroundColor(Color.yellow)
@@ -48,10 +65,10 @@ struct ContentView: View {
                     }
                 }
                 
-                HStack {
-                    ExtractedView(btnName: "show")
-                    ExtractedView(btnName: "hide")
-                }
+//                HStack {
+//                    ExtractedView(btnName: "show")
+//                    ExtractedView(btnName: "hide")
+//                }
                 
             }
         }
