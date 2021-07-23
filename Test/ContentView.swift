@@ -9,18 +9,32 @@ import SwiftUI
 
 struct ContentView: View {
     
+    //MARK: - States
+    
     @State private var textString = "Click the Button"
-    @State private var value = 1
+    @State private var value = 1 // Value of Dice.
+    @State private var isRest : Bool = false // To check if value should be shown or not.
+    
+    //MARK: - Functions
     
     func getRandomNum() {
         let number = Int.random(in: 1..<7)
         self.value = number
+        
+        checkReset()
     }
     
     func restRandomNumAsOne() {
-        self.value = 1
+        self.value = 0
+        
+        checkReset()
     }
     
+    func checkReset() {
+        self.isRest = self.value > 0 ? true : false
+    }
+    
+    //MARK: - Views
     
     var body: some View {
         ZStack {
@@ -39,6 +53,7 @@ struct ContentView: View {
                     .fontWeight(.bold)
                     .foregroundColor(Color.black)
                     .padding(.bottom, 20.0)
+                    .opacity(self.isRest == true ? 1.0 : 0.0)
                     
                 
                 HStack {
@@ -62,6 +77,7 @@ struct ContentView: View {
                             .foregroundColor(Color.yellow)
                             .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
                             .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.gray/*@END_MENU_TOKEN@*/)
+                        
                     }
                 }
                 
